@@ -424,18 +424,11 @@ async def cmd_site(message: types.Message):
     kb = InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton(text="🌐 Открыть сайт", url=SITE_URL)],
     ])
-    ])
     await message.answer(
-        f"🌐 <b>Официальный сайт игры</b>\n\n"
-        f"На сайте вы можете:\n"
-        f"• Торговать на рынке\n"
-        f"• Общаться на форуме\n"
-        f"• Смотреть топ игроков\n"
-        f"• Управлять профилем",
+        f"🌐 <b>Официальный сайт игры</b>",
         parse_mode="HTML",
         reply_markup=kb
     )
-
 
 # ──────────────────────────────────────────────────────────────────────────────
 # HELP
