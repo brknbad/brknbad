@@ -3,615 +3,322 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Breaking Bad Online — Рынок</title>
+<title>Breaking Bad Online</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg:       #0a0a08;
-    --surface:  #111110;
-    --card:     #161614;
-    --border:   #2a2a26;
-    --accent:   #c8f000;
-    --accent2:  #00e8c8;
-    --red:      #ff3030;
-    --orange:   #ff8c00;
-    --text:     #e8e8e0;
-    --muted:    #666660;
-    --font-display: 'Oswald', sans-serif;
-    --font-mono:    'Share Tech Mono', monospace;
-  }
+:root {
+  --bg: #080807;
+  --s1: #0f0f0d;
+  --s2: #161614;
+  --s3: #1e1e1b;
+  --border: #2c2c28;
+  --border2: #3a3a34;
+  --lime: #d4ff00;
+  --lime2: #a8cc00;
+  --teal: #00ffcc;
+  --red: #ff2525;
+  --orange: #ff7700;
+  --gold: #ffd700;
+  --text: #e8e8de;
+  --muted: #6b6b62;
+  --muted2: #4a4a42;
+  --font-h: 'Bebas Neue', cursive;
+  --font-b: 'IBM Plex Mono', monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font-b);min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h1v1H0z' fill='%23ffffff04'/%3E%3C/svg%3E");pointer-events:none;z-index:0}
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
 
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--font-mono);
-    min-height: 100vh;
-    background-image:
-      radial-gradient(ellipse at 20% 50%, rgba(200,240,0,0.03) 0%, transparent 50%),
-      radial-gradient(ellipse at 80% 20%, rgba(0,232,200,0.03) 0%, transparent 50%);
-  }
+/* ── HEADER ── */
+header{background:rgba(8,8,7,0.95);border-bottom:1px solid var(--border);padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;height:56px;position:sticky;top:0;z-index:200;backdrop-filter:blur(12px)}
+.logo{font-family:var(--font-h);font-size:1.8rem;color:var(--lime);letter-spacing:0.05em;text-decoration:none;display:flex;align-items:center;gap:6px}
+.logo-dot{width:8px;height:8px;background:var(--lime);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.8)}}
+nav{display:flex;gap:0;background:var(--s1);border:1px solid var(--border);padding:3px}
+nav a{padding:6px 16px;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:all 0.15s;cursor:pointer;border:1px solid transparent}
+nav a.active,nav a:hover{color:var(--lime);background:rgba(212,255,0,0.08);border-color:rgba(212,255,0,0.2)}
+.header-right{display:flex;align-items:center;gap:10px}
+.cash-pill{background:rgba(212,255,0,0.1);border:1px solid rgba(212,255,0,0.3);color:var(--lime);padding:4px 12px;font-size:0.78rem;font-weight:600;letter-spacing:0.05em;display:none}
+#tgWidget{display:flex;align-items:center}
 
-  /* HEADER */
-  header {
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    padding: 0 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 64px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  .logo {
-    font-family: var(--font-display);
-    font-size: 1.6rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    color: var(--accent);
-    text-decoration: none;
-    text-transform: uppercase;
-  }
-  .logo span { color: var(--text); }
-  nav { display: flex; gap: 2rem; }
-  nav a {
-    color: var(--muted);
-    text-decoration: none;
-    font-size: 0.8rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    transition: color 0.2s;
-  }
-  nav a:hover, nav a.active { color: var(--accent); }
-  .user-info {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    font-size: 0.8rem;
-  }
-  .cash-badge {
-    background: rgba(200,240,0,0.1);
-    border: 1px solid var(--accent);
-    color: var(--accent);
-    padding: 4px 12px;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-  }
-  #loginBtn {
-    background: var(--accent);
-    color: #000;
-    border: none;
-    padding: 8px 16px;
-    font-family: var(--font-display);
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: opacity 0.2s;
-  }
-  #loginBtn:hover { opacity: 0.85; }
+/* ── LAYOUT ── */
+main{max-width:1280px;margin:0 auto;padding:1.5rem}
+.page{display:none;animation:fadeIn 0.2s ease}
+.page.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 
-  /* LAYOUT */
-  main {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem;
-  }
+/* ── TICKER ── */
+.ticker{background:var(--s1);border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;height:32px;display:flex;align-items:center;margin-bottom:0}
+.ticker-inner{display:flex;gap:3rem;animation:ticker 30s linear infinite;white-space:nowrap;padding-left:100%}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.ticker-item{font-size:0.72rem;letter-spacing:0.1em;color:var(--muted);text-transform:uppercase}
+.ticker-item span{color:var(--lime);margin-left:6px}
 
-  /* TABS */
-  .tabs {
-    display: flex;
-    gap: 0;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 2rem;
-  }
-  .tab {
-    padding: 12px 24px;
-    font-family: var(--font-display);
-    font-size: 0.95rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--muted);
-    cursor: pointer;
-    border-bottom: 3px solid transparent;
-    transition: all 0.2s;
-  }
-  .tab.active {
-    color: var(--accent);
-    border-bottom-color: var(--accent);
-  }
-  .tab:hover:not(.active) { color: var(--text); }
+/* ── STATS BAR ── */
+.stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:1.5rem;margin-top:1.5rem}
+.stat-card{background:var(--s2);padding:1rem 1.25rem;text-align:center;position:relative;overflow:hidden}
+.stat-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--lime);transform:scaleX(0);transition:transform 0.3s}
+.stat-card:hover::before{transform:scaleX(1)}
+.stat-v{font-family:var(--font-h);font-size:2.2rem;color:var(--lime);letter-spacing:0.02em;line-height:1}
+.stat-l{font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.12em;margin-top:3px}
 
-  /* PAGE SECTIONS */
-  .page { display: none; }
-  .page.active { display: block; }
+/* ── PAGE HEADER ── */
+.ph{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:0.75rem}
+.ph-title{font-family:var(--font-h);font-size:2rem;color:var(--lime);letter-spacing:0.05em;display:flex;align-items:center;gap:10px}
+.ph-title::before{content:'';display:inline-block;width:4px;height:28px;background:var(--lime)}
 
-  /* MARKET */
-  .market-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 1.5rem;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-  .section-title {
-    font-family: var(--font-display);
-    font-size: 1.8rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    color: var(--accent);
-    text-transform: uppercase;
-  }
-  .filter-bar {
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-  }
-  .filter-btn {
-    padding: 6px 16px;
-    background: transparent;
-    border: 1px solid var(--border);
-    color: var(--muted);
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    cursor: pointer;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    transition: all 0.2s;
-  }
-  .filter-btn.active, .filter-btn:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-    background: rgba(200,240,0,0.05);
-  }
-  .btn-primary {
-    padding: 8px 20px;
-    background: var(--accent);
-    color: #000;
-    border: none;
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 0.85rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: opacity 0.2s;
-  }
-  .btn-primary:hover { opacity: 0.85; }
-  .btn-danger {
-    background: var(--red);
-    color: #fff;
-  }
+/* ── FILTERS ── */
+.filters{display:flex;gap:4px;flex-wrap:wrap}
+.fb{padding:5px 14px;background:transparent;border:1px solid var(--border);color:var(--muted);font-family:var(--font-b);font-size:0.7rem;cursor:pointer;text-transform:uppercase;letter-spacing:0.08em;transition:all 0.15s}
+.fb.active,.fb:hover{border-color:var(--lime);color:var(--lime);background:rgba(212,255,0,0.06)}
 
-  /* LISTINGS GRID */
-  .listings-grid {
-    display: grid;
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
-  }
-  .listing-card {
-    background: var(--card);
-    padding: 1rem 1.5rem;
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr 1.5fr auto;
-    align-items: center;
-    gap: 1rem;
-    transition: background 0.15s;
-  }
-  .listing-card:hover { background: var(--surface); }
-  .listing-item-type {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-  .item-emoji { font-size: 1.5rem; }
-  .item-name {
-    font-family: var(--font-display);
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--text);
-    letter-spacing: 0.05em;
-  }
-  .item-quality {
-    font-size: 0.75rem;
-    color: var(--accent2);
-    font-family: var(--font-mono);
-  }
-  .item-seller {
-    font-size: 0.8rem;
-    color: var(--muted);
-  }
-  .item-seller span {
-    color: var(--text);
-    font-weight: 600;
-  }
-  .item-amount {
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--text);
-    text-align: right;
-  }
-  .item-price {
-    text-align: right;
-  }
-  .price-total {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--accent);
-    font-family: var(--font-display);
-  }
-  .price-per {
-    font-size: 0.7rem;
-    color: var(--muted);
-  }
-  .rank-badge {
-    font-size: 0.65rem;
-    padding: 2px 6px;
-    border: 1px solid var(--border);
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-  .rank-legend { border-color: var(--accent); color: var(--accent); }
-  .rank-baron   { border-color: var(--orange); color: var(--orange); }
-  .rank-cook    { border-color: var(--accent2); color: var(--accent2); }
+/* ── BUTTONS ── */
+.btn{padding:8px 20px;font-family:var(--font-h);font-size:1rem;letter-spacing:0.1em;cursor:pointer;transition:all 0.15s;border:none;display:inline-flex;align-items:center;gap:6px}
+.btn-lime{background:var(--lime);color:#000}
+.btn-lime:hover{background:var(--lime2)}
+.btn-outline{background:transparent;border:1px solid var(--border2);color:var(--muted)}
+.btn-outline:hover{border-color:var(--lime);color:var(--lime)}
+.btn-red{background:var(--red);color:#fff}
+.btn-red:hover{opacity:0.85}
 
-  /* TABLE HEADER */
-  .table-header {
-    background: var(--surface);
-    padding: 0.6rem 1.5rem;
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr 1.5fr auto;
-    gap: 1rem;
-    font-size: 0.7rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--muted);
-    border-bottom: 1px solid var(--border);
-  }
+/* ── TABLE HEADER ── */
+.th{background:var(--s1);padding:0.5rem 1.25rem;display:grid;grid-template-columns:2.5fr 0.8fr 1fr 1fr 1.2fr 90px;gap:0.75rem;font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);border:1px solid var(--border);border-bottom:none}
 
-  /* SELL MODAL */
-  .modal-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.85);
-    z-index: 1000;
-    align-items: center;
-    justify-content: center;
-  }
-  .modal-overlay.open { display: flex; }
-  .modal {
-    background: var(--card);
-    border: 1px solid var(--border);
-    width: 480px;
-    max-width: 95vw;
-    padding: 2rem;
-  }
-  .modal-title {
-    font-family: var(--font-display);
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: var(--accent);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 1.5rem;
-  }
-  .form-group { margin-bottom: 1rem; }
-  .form-label {
-    display: block;
-    font-size: 0.75rem;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 0.4rem;
-  }
-  .form-select, .form-input {
-    width: 100%;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    color: var(--text);
-    padding: 10px 14px;
-    font-family: var(--font-mono);
-    font-size: 0.9rem;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-  .form-select:focus, .form-input:focus {
-    border-color: var(--accent);
-  }
-  .form-actions { display: flex; gap: 0.75rem; margin-top: 1.5rem; }
-  .btn-secondary {
-    padding: 8px 20px;
-    background: transparent;
-    border: 1px solid var(--border);
-    color: var(--muted);
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 0.85rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .btn-secondary:hover { border-color: var(--muted); color: var(--text); }
+/* ── LISTINGS ── */
+.listings{display:grid;gap:1px;background:var(--border);border:1px solid var(--border)}
+.lcard{background:var(--s2);padding:0.85rem 1.25rem;display:grid;grid-template-columns:2.5fr 0.8fr 1fr 1fr 1.2fr 90px;align-items:center;gap:0.75rem;transition:background 0.12s;cursor:default}
+.lcard:hover{background:var(--s3)}
+.litem{display:flex;align-items:center;gap:10px}
+.litem-icon{font-size:1.6rem;line-height:1}
+.litem-name{font-family:var(--font-h);font-size:1.05rem;letter-spacing:0.03em}
+.litem-q{font-size:0.7rem;color:var(--teal);margin-top:1px}
+.lseller{font-size:0.78rem;color:var(--muted)}
+.lseller-nick{color:var(--text);font-weight:600;display:block}
+.lamount{font-size:1rem;font-weight:600;text-align:right}
+.ldate{font-size:0.72rem;color:var(--muted);text-align:right}
+.lprice{text-align:right}
+.lprice-total{font-family:var(--font-h);font-size:1.3rem;color:var(--lime);letter-spacing:0.02em}
+.lprice-per{font-size:0.65rem;color:var(--muted)}
+.rank-b{display:inline-block;font-size:0.6rem;padding:1px 5px;border:1px solid var(--border);color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-top:2px}
+.rank-legend{border-color:var(--lime);color:var(--lime)}
+.rank-baron{border-color:var(--orange);color:var(--orange)}
+.rank-cook{border-color:var(--teal);color:var(--teal)}
 
-  /* LEADERBOARD */
-  .leaderboard-sort {
-    display: flex;
-    gap: 0.5rem;
-    margin-bottom: 1.5rem;
-  }
-  .lb-table {
-    width: 100%;
-    border-collapse: collapse;
-    border: 1px solid var(--border);
-  }
-  .lb-table th {
-    background: var(--surface);
-    padding: 0.75rem 1rem;
-    text-align: left;
-    font-size: 0.7rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--muted);
-    border-bottom: 1px solid var(--border);
-  }
-  .lb-table td {
-    padding: 0.85rem 1rem;
-    border-bottom: 1px solid rgba(42,42,38,0.5);
-    font-size: 0.9rem;
-  }
-  .lb-table tr:hover td { background: var(--surface); }
-  .pos-1 { color: var(--accent); font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; }
-  .pos-2 { color: #c0c0c0; }
-  .pos-3 { color: #cd7f32; }
-  .nickname-cell {
-    font-family: var(--font-display);
-    font-size: 1rem;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-  }
-  .cash-cell { color: var(--accent); font-weight: 700; }
+/* ── LEADERBOARD ── */
+.lb-wrap{border:1px solid var(--border);overflow:hidden}
+.lb-head{display:grid;grid-template-columns:60px 1fr 120px 80px 140px 120px;gap:0;background:var(--s1);border-bottom:1px solid var(--border)}
+.lb-head div{padding:0.6rem 1rem;font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted)}
+.lb-row{display:grid;grid-template-columns:60px 1fr 120px 80px 140px 120px;gap:0;background:var(--s2);border-bottom:1px solid rgba(44,44,40,0.5);transition:background 0.12s}
+.lb-row:hover{background:var(--s3)}
+.lb-row div{padding:0.75rem 1rem;font-size:0.85rem;display:flex;align-items:center}
+.lb-pos{font-family:var(--font-h);font-size:1.4rem;color:var(--muted)}
+.lb-pos.p1{color:var(--gold)}
+.lb-pos.p2{color:#c0c0c0}
+.lb-pos.p3{color:#cd7f32}
+.lb-nick{font-family:var(--font-h);font-size:1.1rem;letter-spacing:0.03em}
+.lb-cash{color:var(--lime);font-weight:600}
+.lb-rep{color:var(--teal)}
 
-  /* FORUM */
-  .forum-layout {
-    display: grid;
-    grid-template-columns: 220px 1fr;
-    gap: 1.5rem;
-  }
-  .forum-categories {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-  .cat-item {
-    background: var(--card);
-    border: 1px solid var(--border);
-    padding: 12px 16px;
-    cursor: pointer;
-    transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-  .cat-item:hover, .cat-item.active {
-    border-color: var(--accent);
-    background: rgba(200,240,0,0.05);
-  }
-  .cat-icon { font-size: 1.2rem; }
-  .cat-name {
-    font-family: var(--font-display);
-    font-size: 0.9rem;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-  }
-  .topics-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); }
-  .topic-item {
-    background: var(--card);
-    padding: 1rem 1.25rem;
-    cursor: pointer;
-    transition: background 0.15s;
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 0.5rem;
-    align-items: center;
-  }
-  .topic-item:hover { background: var(--surface); }
-  .topic-title {
-    font-family: var(--font-display);
-    font-size: 0.95rem;
-    font-weight: 600;
-    letter-spacing: 0.03em;
-    color: var(--text);
-  }
-  .topic-meta { font-size: 0.75rem; color: var(--muted); margin-top: 3px; }
-  .topic-stats { text-align: right; font-size: 0.75rem; color: var(--muted); }
-  .pinned-badge {
-    font-size: 0.65rem;
-    background: rgba(200,240,0,0.1);
-    border: 1px solid var(--accent);
-    color: var(--accent);
-    padding: 1px 6px;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-right: 6px;
-  }
+/* ── FORUM ── */
+.forum-wrap{display:grid;grid-template-columns:200px 1fr;gap:1px;background:var(--border);border:1px solid var(--border)}
+.forum-cats{background:var(--s1);display:flex;flex-direction:column;gap:1px}
+.fcat{padding:12px 16px;cursor:pointer;transition:all 0.15s;display:flex;align-items:center;gap:10px;border-left:3px solid transparent;background:var(--s2)}
+.fcat:hover,.fcat.active{background:var(--s3);border-left-color:var(--lime)}
+.fcat-icon{font-size:1.1rem}
+.fcat-name{font-family:var(--font-h);font-size:0.9rem;letter-spacing:0.05em;text-transform:uppercase}
+.fcat.active .fcat-name{color:var(--lime)}
+.forum-main{background:var(--s2);display:flex;flex-direction:column}
+.forum-topbar{padding:0.75rem 1.25rem;background:var(--s1);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.forum-topbar-title{font-family:var(--font-h);font-size:1rem;letter-spacing:0.08em;color:var(--muted);text-transform:uppercase}
+.topics{display:flex;flex-direction:column;gap:1px;background:var(--border)}
+.titem{background:var(--s2);padding:1rem 1.25rem;cursor:pointer;transition:background 0.12s;display:grid;grid-template-columns:1fr 80px;align-items:center;gap:1rem}
+.titem:hover{background:var(--s3)}
+.titem-title{font-family:var(--font-h);font-size:1rem;letter-spacing:0.03em}
+.titem-meta{font-size:0.7rem;color:var(--muted);margin-top:3px}
+.titem-stats{text-align:right;font-size:0.72rem;color:var(--muted)}
+.pin-b{font-size:0.6rem;background:rgba(212,255,0,0.1);border:1px solid var(--lime);color:var(--lime);padding:1px 5px;text-transform:uppercase;letter-spacing:0.08em;margin-right:5px}
 
-  /* STATS BAR */
-  .stats-bar {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
-    margin-bottom: 2rem;
-  }
-  .stat-card {
-    background: var(--card);
-    padding: 1.25rem 1.5rem;
-    text-align: center;
-  }
-  .stat-value {
-    font-family: var(--font-display);
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--accent);
-    letter-spacing: 0.02em;
-    line-height: 1;
-  }
-  .stat-label {
-    font-size: 0.7rem;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-top: 4px;
-  }
+/* ── TOPIC VIEW ── */
+.topic-view{display:none;flex-direction:column}
+.topic-view.active{display:flex}
+.tv-header{padding:1rem 1.25rem;background:var(--s1);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.tv-back{background:transparent;border:1px solid var(--border);color:var(--muted);padding:5px 12px;font-family:var(--font-b);font-size:0.75rem;cursor:pointer;transition:all 0.15s;text-transform:uppercase;letter-spacing:0.08em}
+.tv-back:hover{border-color:var(--lime);color:var(--lime)}
+.tv-title{font-family:var(--font-h);font-size:1.2rem;letter-spacing:0.04em}
+.posts{display:flex;flex-direction:column;gap:1px;background:var(--border)}
+.post{background:var(--s2);padding:1rem 1.25rem;display:grid;grid-template-columns:140px 1fr;gap:1rem}
+.post-author{border-right:1px solid var(--border);padding-right:1rem}
+.post-nick{font-family:var(--font-h);font-size:1rem;letter-spacing:0.04em;color:var(--lime)}
+.post-rank{font-size:0.65rem;color:var(--muted);margin-top:2px}
+.post-lvl{font-size:0.65rem;color:var(--muted)}
+.post-content{font-size:0.85rem;line-height:1.7;color:var(--text);white-space:pre-wrap;word-break:break-word}
+.post-date{font-size:0.68rem;color:var(--muted);margin-top:8px}
+.reply-box{padding:1rem 1.25rem;background:var(--s1);border-top:1px solid var(--border)}
+.reply-box textarea{width:100%;background:var(--s2);border:1px solid var(--border);color:var(--text);padding:10px 14px;font-family:var(--font-b);font-size:0.85rem;resize:vertical;min-height:80px;outline:none;transition:border-color 0.15s}
+.reply-box textarea:focus{border-color:var(--lime)}
+.reply-actions{display:flex;justify-content:flex-end;margin-top:8px}
 
-  /* LOADING */
-  .loading {
-    text-align: center;
-    padding: 3rem;
-    color: var(--muted);
-    font-size: 0.9rem;
-    letter-spacing: 0.1em;
-  }
-  .loading::after {
-    content: '';
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    border: 2px solid var(--border);
-    border-top-color: var(--accent);
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-    vertical-align: middle;
-    margin-left: 0.5rem;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
+/* ── MODALS ── */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:500;align-items:center;justify-content:center;padding:1rem}
+.modal-overlay.open{display:flex}
+.modal{background:var(--s2);border:1px solid var(--border2);width:460px;max-width:100%;max-height:90vh;overflow-y:auto}
+.modal-head{padding:1.25rem 1.5rem;background:var(--s1);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.modal-title{font-family:var(--font-h);font-size:1.4rem;color:var(--lime);letter-spacing:0.08em}
+.modal-close{background:transparent;border:none;color:var(--muted);font-size:1.2rem;cursor:pointer;padding:4px 8px;transition:color 0.15s}
+.modal-close:hover{color:var(--text)}
+.modal-body{padding:1.5rem}
+.fg{margin-bottom:1rem}
+.fl{display:block;font-size:0.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:5px}
+.fi,.fs,.fta{width:100%;background:var(--s1);border:1px solid var(--border);color:var(--text);padding:9px 13px;font-family:var(--font-b);font-size:0.88rem;outline:none;transition:border-color 0.15s}
+.fi:focus,.fs:focus,.fta:focus{border-color:var(--lime)}
+.fta{resize:vertical;min-height:90px}
+.modal-total{color:var(--lime);font-family:var(--font-h);font-size:1.1rem;min-height:1.4rem;margin-top:6px;letter-spacing:0.05em}
+.modal-actions{display:flex;gap:8px;margin-top:1.25rem}
 
-  /* TOAST */
-  .toast-container { position: fixed; bottom: 2rem; right: 2rem; z-index: 9999; display: flex; flex-direction: column; gap: 0.5rem; }
-  .toast {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--accent);
-    padding: 12px 20px;
-    font-size: 0.85rem;
-    max-width: 320px;
-    animation: slideIn 0.3s ease;
-  }
-  .toast.error { border-left-color: var(--red); }
-  @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+/* ── EMPTY / LOADING ── */
+.empty{text-align:center;padding:3.5rem 2rem;color:var(--muted);background:var(--s2)}
+.empty-icon{font-size:2.5rem;display:block;margin-bottom:0.75rem;opacity:0.4}
+.loading{text-align:center;padding:2.5rem;color:var(--muted);font-size:0.85rem;letter-spacing:0.1em}
+.loading::after{content:'';display:inline-block;width:16px;height:16px;border:2px solid var(--border2);border-top-color:var(--lime);border-radius:50%;animation:spin 0.7s linear infinite;vertical-align:middle;margin-left:8px}
+@keyframes spin{to{transform:rotate(360deg)}}
 
-  /* EMPTY STATE */
-  .empty-state {
-    text-align: center;
-    padding: 4rem 2rem;
-    color: var(--muted);
-    font-size: 0.9rem;
-    background: var(--card);
-    border: 1px solid var(--border);
-  }
-  .empty-icon { font-size: 3rem; display: block; margin-bottom: 1rem; opacity: 0.5; }
+/* ── TOAST ── */
+.toasts{position:fixed;bottom:1.5rem;right:1.5rem;z-index:9999;display:flex;flex-direction:column;gap:6px;max-width:320px}
+.toast{background:var(--s2);border:1px solid var(--border2);border-left:3px solid var(--lime);padding:10px 16px;font-size:0.82rem;animation:toastIn 0.25s ease}
+.toast.err{border-left-color:var(--red)}
+@keyframes toastIn{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
 
-  @media (max-width: 768px) {
-    .listing-card, .table-header { grid-template-columns: 1fr 1fr auto; }
-    .listing-card > *:nth-child(3), .listing-card > *:nth-child(4) { display: none; }
-    .table-header > *:nth-child(3), .table-header > *:nth-child(4) { display: none; }
-    .forum-layout { grid-template-columns: 1fr; }
-    .stats-bar { grid-template-columns: 1fr 1fr; }
-    nav { display: none; }
-  }
+/* ── MOBILE NAV ── */
+.mob-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:rgba(8,8,7,0.97);border-top:1px solid var(--border);z-index:200;backdrop-filter:blur(12px)}
+.mob-nav-inner{display:flex;justify-content:space-around}
+.mob-nav a{flex:1;padding:10px 0;text-align:center;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;transition:color 0.15s}
+.mob-nav a.active,.mob-nav a:hover{color:var(--lime)}
+.mob-nav-icon{font-size:1.3rem}
+
+/* ── MOBILE ── */
+@media(max-width:768px){
+  header{padding:0 1rem;height:50px}
+  nav{display:none}
+  .logo{font-size:1.5rem}
+  main{padding:1rem 0.75rem;padding-bottom:70px}
+  .stats-bar{grid-template-columns:1fr 1fr}
+  .stat-v{font-size:1.6rem}
+  .th,.lcard{grid-template-columns:1fr 1fr auto}
+  .th>*:nth-child(3),.th>*:nth-child(4),.lcard>*:nth-child(3),.lcard>*:nth-child(4){display:none}
+  .forum-wrap{grid-template-columns:1fr;grid-template-rows:auto 1fr}
+  .forum-cats{flex-direction:row;overflow-x:auto;gap:1px}
+  .fcat{padding:10px 14px;border-left:none;border-bottom:3px solid transparent;min-width:max-content}
+  .fcat.active{border-bottom-color:var(--lime);border-left:none}
+  .lb-head,.lb-row{grid-template-columns:50px 1fr 100px 80px}
+  .lb-head>*:nth-child(5),.lb-head>*:nth-child(6),.lb-row>*:nth-child(5),.lb-row>*:nth-child(6){display:none}
+  .post{grid-template-columns:100px 1fr}
+  .mob-nav{display:block}
+  .ph-title{font-size:1.5rem}
+  .modal{width:100%;max-width:100%;margin:0;border-radius:0;position:fixed;bottom:0;max-height:85vh}
+  .modal-overlay{align-items:flex-end;padding:0}
+}
+@media(min-width:769px){.mob-nav{display:none}}
 </style>
 </head>
 <body>
 
 <header>
-  <a class="logo" href="#"><span>BB</span>Online</a>
-  <nav>
-    <a href="#" class="active" onclick="showTab('market')">💊 Рынок</a>
-    <a href="#" onclick="showTab('forum')">💬 Форум</a>
-    <a href="#" onclick="showTab('leaderboard')">🏆 Топ</a>
+  <a class="logo" href="#"><div class="logo-dot"></div>BB ONLINE</a>
+  <nav id="desknav">
+    <a class="active" onclick="showTab('market',this)">💊 Рынок</a>
+    <a onclick="showTab('forum',this)">💬 Форум</a>
+    <a onclick="showTab('leaderboard',this)">🏆 Топ</a>
   </nav>
-  <div class="user-info" id="userInfo">
-    <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-login="brcknbad_bot" data-size="medium" data-onauth="onTelegramAuth(user)" data-request-access="write"></script>
+  <div class="header-right">
+    <div class="cash-pill" id="cashPill"></div>
+    <div id="tgWidget"></div>
   </div>
 </header>
 
+<div class="ticker">
+  <div class="ticker-inner" id="tickerInner">
+    <span class="ticker-item">💊 Продукт<span id="t1">—</span></span>
+    <span class="ticker-item">🧪 Метиламин<span>$300/ед</span></span>
+    <span class="ticker-item">🔴 Фосфор<span>$150/ед</span></span>
+    <span class="ticker-item">⚗️ Кислота<span>$200/ед</span></span>
+    <span class="ticker-item">📦 Упаковка<span>$50/ед</span></span>
+    <span class="ticker-item">👥 Игроков<span id="t2">—</span></span>
+    <span class="ticker-item">💊 Продукт<span id="t3">—</span></span>
+    <span class="ticker-item">🧪 Метиламин<span>$300/ед</span></span>
+    <span class="ticker-item">🔴 Фосфор<span>$150/ед</span></span>
+    <span class="ticker-item">⚗️ Кислота<span>$200/ед</span></span>
+    <span class="ticker-item">📦 Упаковка<span>$50/ед</span></span>
+    <span class="ticker-item">👥 Игроков<span id="t4">—</span></span>
+  </div>
+</div>
+
 <main>
-  <!-- STATS BAR -->
-  <div class="stats-bar" id="statsBar">
-    <div class="stat-card">
-      <div class="stat-value" id="statPlayers">—</div>
-      <div class="stat-label">Игроков онлайн</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-value" id="statListings">—</div>
-      <div class="stat-label">Активных лотов</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-value" id="statTopCash">—</div>
-      <div class="stat-label">Рекорд капитала</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-value" id="statTopPlayer">—</div>
-      <div class="stat-label">Легенда сервера</div>
-    </div>
+  <div class="stats-bar">
+    <div class="stat-card"><div class="stat-v" id="sPlayers">—</div><div class="stat-l">Игроков</div></div>
+    <div class="stat-card"><div class="stat-v" id="sListings">—</div><div class="stat-l">Лотов на рынке</div></div>
+    <div class="stat-card"><div class="stat-v" id="sTopCash">—</div><div class="stat-l">Рекорд капитала</div></div>
+    <div class="stat-card"><div class="stat-v" id="sTopPlayer" style="font-size:1.3rem">—</div><div class="stat-l">Легенда сервера</div></div>
   </div>
 
   <!-- MARKET -->
   <div class="page active" id="page-market">
-    <div class="market-header">
-      <div class="section-title">💊 Рынок</div>
-      <div class="filter-bar" id="filterBar">
-        <button class="filter-btn active" onclick="filterMarket(null, this)">Всё</button>
-        <button class="filter-btn" onclick="filterMarket('product', this)">Продукт</button>
-        <button class="filter-btn" onclick="filterMarket('methylamine', this)">Метиламин</button>
-        <button class="filter-btn" onclick="filterMarket('phosphorus', this)">Фосфор</button>
-        <button class="filter-btn" onclick="filterMarket('acid', this)">Кислота</button>
-        <button class="filter-btn" onclick="filterMarket('packaging', this)">Упаковка</button>
+    <div class="ph">
+      <div class="ph-title">Рынок</div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <div class="filters" id="mfilters">
+          <button class="fb active" onclick="filterMarket(null,this)">Всё</button>
+          <button class="fb" onclick="filterMarket('product',this)">💊 Продукт</button>
+          <button class="fb" onclick="filterMarket('methylamine',this)">🧪 Метиламин</button>
+          <button class="fb" onclick="filterMarket('phosphorus',this)">🔴 Фосфор</button>
+          <button class="fb" onclick="filterMarket('acid',this)">⚗️ Кислота</button>
+          <button class="fb" onclick="filterMarket('packaging',this)">📦 Упаковка</button>
+        </div>
+        <button class="btn btn-lime" id="sellBtn" style="display:none" onclick="openModal('sellModal')">+ Продать</button>
       </div>
-      <button class="btn-primary" onclick="openSellModal()" id="sellBtn" style="display:none">+ Продать</button>
     </div>
-
-    <div class="table-header">
-      <div>Товар</div>
-      <div style="text-align:right">Кол-во</div>
-      <div style="text-align:right">Продавец</div>
-      <div style="text-align:right">Качество</div>
-      <div style="text-align:right">Цена</div>
-      <div></div>
+    <div class="th">
+      <div>Товар</div><div>Кол-во</div><div>Продавец</div><div>Дата</div><div>Цена</div><div></div>
     </div>
-    <div class="listings-grid" id="listingsGrid">
-      <div class="loading">Загрузка рынка</div>
-    </div>
+    <div class="listings" id="listings"><div class="loading">Загрузка рынка</div></div>
   </div>
 
   <!-- FORUM -->
   <div class="page" id="page-forum">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem">
-      <div class="section-title">💬 Форум</div>
-      <button class="btn-primary" onclick="openNewTopicModal()" id="newTopicBtn" style="display:none">+ Создать тему</button>
+    <div class="ph">
+      <div class="ph-title">Форум</div>
+      <button class="btn btn-lime" id="newTopicBtn" style="display:none" onclick="openModal('topicModal')">+ Новая тема</button>
     </div>
-    <div class="forum-layout">
-      <div class="forum-categories" id="forumCategories">
-        <div class="loading">...</div>
-      </div>
-      <div>
-        <div class="topics-list" id="topicsList">
-          <div class="empty-state">
-            <span class="empty-icon">💬</span>
-            Выберите категорию
+    <div class="forum-wrap">
+      <div class="forum-cats" id="forumCats"><div class="loading" style="padding:1rem">...</div></div>
+      <div class="forum-main" id="forumMain">
+        <!-- TOPICS LIST -->
+        <div id="topicsView">
+          <div class="forum-topbar">
+            <span class="forum-topbar-title" id="forumCatName">Выберите категорию</span>
           </div>
+          <div class="topics" id="topicsList"><div class="empty"><span class="empty-icon">💬</span>Выберите категорию</div></div>
+        </div>
+        <!-- TOPIC VIEW -->
+        <div class="topic-view" id="topicView">
+          <div class="tv-header">
+            <button class="tv-back" onclick="backToTopics()">← Назад</button>
+            <span class="tv-title" id="tvTitle"></span>
+          </div>
+          <div class="posts" id="postsList"></div>
+          <div class="reply-box" id="replyBox" style="display:none">
+            <textarea class="fta" id="replyText" placeholder="Написать ответ..."></textarea>
+            <div class="reply-actions">
+              <button class="btn btn-lime" onclick="submitReply()">Отправить</button>
+            </div>
+          </div>
+          <div id="replyLoginMsg" style="display:none;padding:1rem;text-align:center;color:var(--muted);font-size:0.82rem">Войдите через Telegram чтобы ответить</div>
         </div>
       </div>
     </div>
@@ -619,58 +326,56 @@
 
   <!-- LEADERBOARD -->
   <div class="page" id="page-leaderboard">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem">
-      <div class="section-title">🏆 Топ игроков</div>
-      <div class="leaderboard-sort">
-        <button class="filter-btn active" onclick="loadLeaderboard('cash', this)">💰 Деньги</button>
-        <button class="filter-btn" onclick="loadLeaderboard('level', this)">⬆️ Уровень</button>
-        <button class="filter-btn" onclick="loadLeaderboard('reputation', this)">⭐ Репутация</button>
+    <div class="ph">
+      <div class="ph-title">Топ игроков</div>
+      <div class="filters">
+        <button class="fb active" onclick="loadLB('cash',this)">💰 Деньги</button>
+        <button class="fb" onclick="loadLB('level',this)">⬆️ Уровень</button>
+        <button class="fb" onclick="loadLB('reputation',this)">⭐ Репутация</button>
       </div>
     </div>
-    <table class="lb-table" id="lbTable">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Игрок</th>
-          <th>Ранг</th>
-          <th>Уровень</th>
-          <th>Баланс</th>
-          <th>Репутация</th>
-        </tr>
-      </thead>
-      <tbody id="lbBody">
-        <tr><td colspan="6"><div class="loading">Загрузка</div></td></tr>
-      </tbody>
-    </table>
+    <div class="lb-wrap">
+      <div class="lb-head">
+        <div>#</div><div>Игрок</div><div>Ранг</div><div>Уровень</div><div>Баланс</div><div>Репутация</div>
+      </div>
+      <div id="lbRows"><div class="loading">Загрузка</div></div>
+    </div>
   </div>
 </main>
+
+<!-- MOBILE NAV -->
+<nav class="mob-nav">
+  <div class="mob-nav-inner">
+    <a class="active" onclick="showTab('market',this)" id="mn-market"><span class="mob-nav-icon">💊</span>Рынок</a>
+    <a onclick="showTab('forum',this)" id="mn-forum"><span class="mob-nav-icon">💬</span>Форум</a>
+    <a onclick="showTab('leaderboard',this)" id="mn-leaderboard"><span class="mob-nav-icon">🏆</span>Топ</a>
+  </div>
+</nav>
 
 <!-- SELL MODAL -->
 <div class="modal-overlay" id="sellModal">
   <div class="modal">
-    <div class="modal-title">📦 Выставить на продажу</div>
-    <div class="form-group">
-      <label class="form-label">Тип товара</label>
-      <select class="form-select" id="sellItemType">
-        <option value="product">💊 Продукт</option>
-        <option value="methylamine">🧪 Метиламин</option>
-        <option value="phosphorus">🔴 Фосфор</option>
-        <option value="acid">⚗️ Кислота</option>
-        <option value="packaging">📦 Упаковка</option>
-      </select>
+    <div class="modal-head">
+      <span class="modal-title">Выставить на продажу</span>
+      <button class="modal-close" onclick="closeModal('sellModal')">✕</button>
     </div>
-    <div class="form-group">
-      <label class="form-label">Количество</label>
-      <input class="form-input" id="sellAmount" type="number" min="0.1" step="0.1" placeholder="10">
-    </div>
-    <div class="form-group">
-      <label class="form-label">Цена за единицу ($)</label>
-      <input class="form-input" id="sellPrice" type="number" min="1" placeholder="500">
-    </div>
-    <div id="sellTotal" style="color:var(--accent);font-family:var(--font-display);font-size:1.1rem;margin-top:0.5rem;min-height:1.5rem"></div>
-    <div class="form-actions">
-      <button class="btn-primary" onclick="submitListing()">Выставить</button>
-      <button class="btn-secondary" onclick="closeSellModal()">Отмена</button>
+    <div class="modal-body">
+      <div class="fg"><label class="fl">Тип товара</label>
+        <select class="fs" id="sellType">
+          <option value="product">💊 Продукт</option>
+          <option value="methylamine">🧪 Метиламин</option>
+          <option value="phosphorus">🔴 Фосфор</option>
+          <option value="acid">⚗️ Кислота</option>
+          <option value="packaging">📦 Упаковка</option>
+        </select>
+      </div>
+      <div class="fg"><label class="fl">Количество</label><input class="fi" id="sellAmt" type="number" min="0.1" step="0.1" placeholder="10" oninput="calcTotal()"></div>
+      <div class="fg"><label class="fl">Цена за единицу ($)</label><input class="fi" id="sellPrc" type="number" min="1" placeholder="500" oninput="calcTotal()"></div>
+      <div class="modal-total" id="sellTotal"></div>
+      <div class="modal-actions">
+        <button class="btn btn-lime" onclick="submitListing()">Выставить</button>
+        <button class="btn btn-outline" onclick="closeModal('sellModal')">Отмена</button>
+      </div>
     </div>
   </div>
 </div>
@@ -678,367 +383,356 @@
 <!-- NEW TOPIC MODAL -->
 <div class="modal-overlay" id="topicModal">
   <div class="modal">
-    <div class="modal-title">📝 Новая тема</div>
-    <div class="form-group">
-      <label class="form-label">Категория</label>
-      <select class="form-select" id="topicCategory"></select>
+    <div class="modal-head">
+      <span class="modal-title">Новая тема</span>
+      <button class="modal-close" onclick="closeModal('topicModal')">✕</button>
     </div>
-    <div class="form-group">
-      <label class="form-label">Заголовок</label>
-      <input class="form-input" id="topicTitle" type="text" placeholder="Продаю крупную партию...">
-    </div>
-    <div class="form-group">
-      <label class="form-label">Сообщение</label>
-      <textarea class="form-input" id="topicContent" rows="5" placeholder="Текст темы..."></textarea>
-    </div>
-    <div class="form-actions">
-      <button class="btn-primary" onclick="submitTopic()">Создать</button>
-      <button class="btn-secondary" onclick="closeTopicModal()">Отмена</button>
+    <div class="modal-body">
+      <div class="fg"><label class="fl">Категория</label><select class="fs" id="topicCat"></select></div>
+      <div class="fg"><label class="fl">Заголовок</label><input class="fi" id="topicTitle" type="text" placeholder="Продаю крупную партию..."></div>
+      <div class="fg"><label class="fl">Текст</label><textarea class="fta" id="topicText" placeholder="Напишите сообщение..."></textarea></div>
+      <div class="modal-actions">
+        <button class="btn btn-lime" onclick="submitTopic()">Создать</button>
+        <button class="btn btn-outline" onclick="closeModal('topicModal')">Отмена</button>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- TOAST CONTAINER -->
-<div class="toast-container" id="toasts"></div>
+<div class="toasts" id="toasts"></div>
+
+<!-- Telegram Login Widget -->
+<script async src="https://telegram.org/js/telegram-widget.js?22"
+  data-telegram-login="brcknbad_bot"
+  data-size="small"
+  data-onauth="onTgAuth(user)"
+  data-request-access="write">
+</script>
 
 <script>
 const API = 'https://brknbad-production.up.railway.app';
-let currentUser = null;
-let currentFilter = null;
-let currentCategorySlug = null;
-let categories = [];
+let me = null;
+let curFilter = null;
+let curCatSlug = null;
+let curTopicId = null;
+let cats = [];
 
-// ── ITEM CONFIG ────────────────────────────────────────────────────────────
-const ITEMS = {
-  product:      { name: 'Продукт',    emoji: '💊' },
-  methylamine:  { name: 'Метиламин',  emoji: '🧪' },
-  phosphorus:   { name: 'Фосфор',     emoji: '🔴' },
-  acid:         { name: 'Кислота',    emoji: '⚗️' },
-  packaging:    { name: 'Упаковка',   emoji: '📦' },
-};
-
-const RANK_CLASS = {
-  'легенда': 'rank-legend',
-  'барон': 'rank-baron',
-  'варщик': 'rank-cook',
-};
-
-// ── AUTH ───────────────────────────────────────────────────────────────────
-function onTelegramAuth(user) {
+// ── AUTH ──────────────────────────────────────────────────────────────────
+function onTgAuth(user) {
   fetch(`${API}/api/user/${user.id}`)
     .then(r => r.json())
-    .then(data => {
-      if (data.telegram_id) {
-        setUser(data);
-        toast('✅ Вошли как ' + data.nickname);
-      } else {
-        toast('❌ Сначала напишите боту @brcknbad_bot', true);
-      }
-    });
-}
-function setUser(userData) {
-  currentUser = userData;
-  document.getElementById('userInfo').innerHTML = `
-    <span style="color:var(--muted);font-size:0.8rem">${userData.rank} · ${userData.nickname}</span>
-    <span class="cash-badge">$${Math.floor(userData.cash).toLocaleString()}</span>
-  `;
-  document.getElementById('sellBtn').style.display = 'block';
-  document.getElementById('newTopicBtn').style.display = 'block';
+    .then(d => {
+      if (d.telegram_id) { setMe(d); toast('✅ Вошли как ' + d.nickname); }
+      else toast('❌ Сначала напишите боту @brcknbad_bot', true);
+    }).catch(() => toast('Ошибка входа', true));
 }
 
-// ── TABS ───────────────────────────────────────────────────────────────────
-function showTab(name) {
+function setMe(d) {
+  me = d;
+  const w = document.getElementById('tgWidget');
+  w.innerHTML = `<span style="color:var(--muted);font-size:0.75rem;margin-right:8px">${d.rank} · ${d.nickname}</span>`;
+  document.getElementById('cashPill').textContent = '$' + Math.floor(d.cash).toLocaleString();
+  document.getElementById('cashPill').style.display = 'block';
+  document.getElementById('sellBtn').style.display = 'inline-flex';
+  document.getElementById('newTopicBtn').style.display = 'inline-flex';
+  if (document.getElementById('replyBox')) {
+    document.getElementById('replyBox').style.display = 'block';
+    document.getElementById('replyLoginMsg').style.display = 'none';
+  }
+}
+
+// ── TABS ──────────────────────────────────────────────────────────────────
+function showTab(name, el) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+  document.querySelectorAll('#desknav a, .mob-nav a').forEach(a => a.classList.remove('active'));
   document.getElementById('page-' + name).classList.add('active');
-  
+  if (el) el.classList.add('active');
+  // sync both navs
+  document.querySelectorAll(`[onclick*="'${name}'"]`).forEach(a => a.classList.add('active'));
   if (name === 'market') loadMarket();
-  if (name === 'forum') loadForumCategories();
-  if (name === 'leaderboard') loadLeaderboard('cash');
+  if (name === 'forum') loadCats();
+  if (name === 'leaderboard') loadLB('cash');
 }
 
 // ── MARKET ────────────────────────────────────────────────────────────────
-async function loadMarket(filter) {
-  const grid = document.getElementById('listingsGrid');
-  grid.innerHTML = '<div class="loading">Загрузка рынка</div>';
+const ITEMS = {
+  product:     {name:'Продукт',    emoji:'💊'},
+  methylamine: {name:'Метиламин',  emoji:'🧪'},
+  phosphorus:  {name:'Фосфор',     emoji:'🔴'},
+  acid:        {name:'Кислота',    emoji:'⚗️'},
+  packaging:   {name:'Упаковка',   emoji:'📦'},
+};
+const RANKS = {'легенда':'rank-legend','барон':'rank-baron','варщик':'rank-cook'};
 
+async function loadMarket(filter) {
+  const el = document.getElementById('listings');
+  el.innerHTML = '<div class="loading">Загрузка рынка</div>';
   try {
-    const params = new URLSearchParams({ limit: 30 });
-    if (filter) params.append('item_type', filter);
-    const res = await fetch(`${API}/api/market?${params}`);
-    const data = await res.json();
-    renderListings(data.listings);
-    updateStats(data.listings);
-  } catch (e) {
-    grid.innerHTML = '<div class="empty-state"><span class="empty-icon">⚠️</span>Ошибка загрузки. Проверьте подключение к серверу.</div>';
+    const p = new URLSearchParams({limit:30});
+    if (filter) p.append('item_type', filter);
+    const res = await fetch(`${API}/api/market?${p}`);
+    const d = await res.json();
+    renderListings(d.listings);
+    document.getElementById('sListings').textContent = d.listings.length;
+    if (d.listings.length) {
+      const avg = d.listings.filter(l=>l.item_type==='product').reduce((s,l)=>s+l.price_per_unit,0);
+      const cnt = d.listings.filter(l=>l.item_type==='product').length;
+      const price = cnt ? '$'+(avg/cnt).toFixed(0)+'/г' : '—';
+      document.getElementById('t1').textContent = price;
+      document.getElementById('t3').textContent = price;
+    }
+  } catch(e) {
+    el.innerHTML = '<div class="empty"><span class="empty-icon">⚠️</span>Ошибка загрузки сервера</div>';
   }
 }
 
-function renderListings(listings) {
-  const grid = document.getElementById('listingsGrid');
-  if (!listings.length) {
-    grid.innerHTML = '<div class="empty-state"><span class="empty-icon">💊</span>На рынке пусто. Будьте первым!</div>';
-    return;
-  }
-  grid.innerHTML = listings.map(l => {
-    const item = ITEMS[l.item_type] || { name: l.item_type, emoji: '📦' };
-    const rankClass = RANK_CLASS[l.seller_rank] || '';
-    const quality = l.quality ? `<div class="item-quality">Качество: ${l.quality.toFixed(1)}%</div>` : '';
-    return `
-    <div class="listing-card">
-      <div class="listing-item-type">
-        <div class="item-emoji">${item.emoji}</div>
-        <div>
-          <div class="item-name">${item.name}</div>
-          ${quality}
-        </div>
-      </div>
-      <div class="item-amount" style="text-align:right">${l.amount.toFixed(1)}</div>
-      <div class="item-seller" style="text-align:right">
-        <span>${l.seller}</span><br>
-        <span class="rank-badge ${rankClass}">${l.seller_rank}</span>
-      </div>
-      <div style="text-align:right;color:var(--muted);font-size:0.85rem">${formatDate(l.created_at)}</div>
-      <div class="item-price">
-        <div class="price-total">$${Math.floor(l.total_price).toLocaleString()}</div>
-        <div class="price-per">$${l.price_per_unit.toFixed(0)}/ед</div>
-      </div>
-      <button class="btn-primary" style="font-size:0.75rem;padding:6px 14px" onclick="buyListing(${l.id})">Купить</button>
+function renderListings(list) {
+  const el = document.getElementById('listings');
+  if (!list.length) { el.innerHTML = '<div class="empty"><span class="empty-icon">💊</span>На рынке пусто. Будьте первым!</div>'; return; }
+  el.innerHTML = list.map(l => {
+    const it = ITEMS[l.item_type] || {name:l.item_type, emoji:'📦'};
+    const rc = RANKS[l.seller_rank] || '';
+    const q = l.quality ? `<div class="litem-q">Качество: ${l.quality.toFixed(1)}%</div>` : '';
+    return `<div class="lcard">
+      <div class="litem"><div class="litem-icon">${it.emoji}</div><div><div class="litem-name">${it.name}</div>${q}</div></div>
+      <div class="lamount">${l.amount.toFixed(1)}</div>
+      <div class="lseller"><span class="lseller-nick">${l.seller}</span><span class="rank-b ${rc}">${l.seller_rank}</span></div>
+      <div class="ldate">${fdate(l.created_at)}</div>
+      <div class="lprice"><div class="lprice-total">$${Math.floor(l.total_price).toLocaleString()}</div><div class="lprice-per">$${l.price_per_unit.toFixed(0)}/ед</div></div>
+      <button class="btn btn-lime" style="font-size:0.8rem;padding:6px 12px" onclick="buyListing(${l.id})">Купить</button>
     </div>`;
   }).join('');
 }
 
 function filterMarket(type, btn) {
-  currentFilter = type;
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  curFilter = type;
+  document.querySelectorAll('#mfilters .fb').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   loadMarket(type);
 }
 
 async function buyListing(id) {
-  if (!currentUser) { toast('Войдите через Telegram для покупки', true); return; }
-  try {
-    const res = await fetch(`${API}/api/market/buy`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ telegram_id: currentUser.telegram_id, listing_id: id })
-    });
-    const data = await res.json();
-    toast(data.message, !data.ok);
-    if (data.ok) { loadMarket(currentFilter); }
-  } catch (e) { toast('Ошибка сервера', true); }
+  if (!me) { toast('Войдите через Telegram', true); return; }
+  const r = await fetch(`${API}/api/market/buy`, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({telegram_id:me.telegram_id,listing_id:id})});
+  const d = await r.json();
+  toast(d.message, !d.ok);
+  if (d.ok) loadMarket(curFilter);
 }
 
-// ── SELL MODAL ─────────────────────────────────────────────────────────────
-function openSellModal() {
-  if (!currentUser) { toast('Войдите через Telegram', true); return; }
-  document.getElementById('sellModal').classList.add('open');
-}
-function closeSellModal() { document.getElementById('sellModal').classList.remove('open'); }
-
-document.addEventListener('DOMContentLoaded', () => {
-  ['sellAmount', 'sellPrice'].forEach(id => {
-    document.getElementById(id).addEventListener('input', updateTotal);
-  });
-});
-
-function updateTotal() {
-  const a = parseFloat(document.getElementById('sellAmount').value) || 0;
-  const p = parseFloat(document.getElementById('sellPrice').value) || 0;
-  const total = a * p;
-  document.getElementById('sellTotal').textContent = total > 0 ? `Итого: $${total.toLocaleString()}` : '';
+// ── SELL ──────────────────────────────────────────────────────────────────
+function calcTotal() {
+  const a = parseFloat(document.getElementById('sellAmt').value) || 0;
+  const p = parseFloat(document.getElementById('sellPrc').value) || 0;
+  document.getElementById('sellTotal').textContent = a && p ? 'Итого: $' + (a*p).toLocaleString() : '';
 }
 
 async function submitListing() {
-  if (!currentUser) return;
-  const itemType = document.getElementById('sellItemType').value;
-  const amount = parseFloat(document.getElementById('sellAmount').value);
-  const price = parseFloat(document.getElementById('sellPrice').value);
-  if (!amount || !price) { toast('Заполните все поля', true); return; }
-
-  try {
-    const res = await fetch(`${API}/api/market/create`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ telegram_id: currentUser.telegram_id, item_type: itemType, amount, price_per_unit: price })
-    });
-    const data = await res.json();
-    toast(data.message, !data.ok);
-    if (data.ok) { closeSellModal(); loadMarket(currentFilter); }
-  } catch (e) { toast('Ошибка сервера', true); }
+  if (!me) return;
+  const it = document.getElementById('sellType').value;
+  const amt = parseFloat(document.getElementById('sellAmt').value);
+  const prc = parseFloat(document.getElementById('sellPrc').value);
+  if (!amt || !prc) { toast('Заполните все поля', true); return; }
+  const r = await fetch(`${API}/api/market/create`, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({telegram_id:me.telegram_id,item_type:it,amount:amt,price_per_unit:prc})});
+  const d = await r.json();
+  toast(d.message, !d.ok);
+  if (d.ok) { closeModal('sellModal'); loadMarket(curFilter); }
 }
 
 // ── LEADERBOARD ───────────────────────────────────────────────────────────
-async function loadLeaderboard(sortBy, btn) {
-  if (btn) {
-    document.querySelectorAll('.leaderboard-sort .filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-  }
-  const tbody = document.getElementById('lbBody');
-  tbody.innerHTML = '<tr><td colspan="6"><div class="loading">Загрузка</div></td></tr>';
-
+async function loadLB(by, btn) {
+  if (btn) { document.querySelectorAll('#page-leaderboard .fb').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
+  const el = document.getElementById('lbRows');
+  el.innerHTML = '<div class="loading">Загрузка</div>';
   try {
-    const res = await fetch(`${API}/api/leaderboard?sort_by=${sortBy}&limit=50`);
-    const data = await res.json();
-    
-    tbody.innerHTML = data.map(p => {
-      const posClass = p.position <= 3 ? `pos-${p.position}` : '';
-      const rankClass = RANK_CLASS[p.rank] || '';
-      const medals = ['🥇','🥈','🥉'];
-      const posDisplay = p.position <= 3 ? medals[p.position-1] : p.position;
-      return `
-      <tr>
-        <td class="${posClass}">${posDisplay}</td>
-        <td class="nickname-cell">${p.nickname}</td>
-        <td><span class="rank-badge ${rankClass}">${p.rank}</span></td>
-        <td style="color:var(--text)">${p.level}</td>
-        <td class="cash-cell">$${Math.floor(p.cash).toLocaleString()}</td>
-        <td style="color:var(--accent2)">${Math.floor(p.reputation)}</td>
-      </tr>`;
+    const r = await fetch(`${API}/api/leaderboard?sort_by=${by}&limit=50`);
+    const d = await r.json();
+    const medals = ['🥇','🥈','🥉'];
+    el.innerHTML = d.map(p => {
+      const pc = p.position<=3 ? `p${p.position}` : '';
+      const rc = RANKS[p.rank] || '';
+      const pos = p.position<=3 ? medals[p.position-1] : p.position;
+      return `<div class="lb-row">
+        <div><span class="lb-pos ${pc}">${pos}</span></div>
+        <div><span class="lb-nick">${p.nickname}</span></div>
+        <div><span class="rank-b ${rc}">${p.rank}</span></div>
+        <div>${p.level}</div>
+        <div class="lb-cash">$${Math.floor(p.cash).toLocaleString()}</div>
+        <div class="lb-rep">${Math.floor(p.reputation)}</div>
+      </div>`;
     }).join('');
-    updateStatsFromLeaderboard(data);
-  } catch (e) {
-    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:2rem">Ошибка загрузки</td></tr>';
-  }
+    if (d.length) {
+      document.getElementById('sPlayers').textContent = d.length;
+      document.getElementById('t2').textContent = d.length;
+      document.getElementById('t4').textContent = d.length;
+      document.getElementById('sTopCash').textContent = '$'+Math.floor(d[0].cash/1000)+'K';
+      document.getElementById('sTopPlayer').textContent = d[0].nickname;
+    }
+  } catch(e) { el.innerHTML = '<div class="empty">Ошибка загрузки</div>'; }
 }
 
 // ── FORUM ─────────────────────────────────────────────────────────────────
-async function loadForumCategories() {
-  const container = document.getElementById('forumCategories');
+async function loadCats() {
+  const el = document.getElementById('forumCats');
   try {
-    const res = await fetch(`${API}/api/forum/categories`);
-    categories = await res.json();
-    container.innerHTML = categories.map(c => `
-      <div class="cat-item" onclick="loadTopics('${c.slug}', this)">
-        <span class="cat-icon">${c.icon}</span>
-        <span class="cat-name">${c.name}</span>
-      </div>
-    `).join('');
-
-    // Fill topic modal select
-    const sel = document.getElementById('topicCategory');
-    sel.innerHTML = categories.map(c => `<option value="${c.slug}">${c.icon} ${c.name}</option>`).join('');
-    
-    if (categories.length) loadTopics(categories[0].slug, container.children[0]);
-  } catch (e) {
-    container.innerHTML = '<div style="color:var(--muted);font-size:0.8rem;padding:1rem">Ошибка загрузки</div>';
-  }
+    const r = await fetch(`${API}/api/forum/categories`);
+    cats = await r.json();
+    el.innerHTML = cats.map(c => `
+      <div class="fcat" onclick="loadTopics('${c.slug}','${c.name}',this)">
+        <span class="fcat-icon">${c.icon}</span>
+        <span class="fcat-name">${c.name}</span>
+      </div>`).join('');
+    const sel = document.getElementById('topicCat');
+    sel.innerHTML = cats.map(c => `<option value="${c.slug}">${c.icon} ${c.name}</option>`).join('');
+    if (cats.length) {
+      const first = el.querySelector('.fcat');
+      loadTopics(cats[0].slug, cats[0].name, first);
+    }
+  } catch(e) { el.innerHTML = '<div style="padding:1rem;color:var(--muted);font-size:0.8rem">Ошибка</div>'; }
 }
 
-async function loadTopics(slug, el) {
-  currentCategorySlug = slug;
-  document.querySelectorAll('.cat-item').forEach(c => c.classList.remove('active'));
+async function loadTopics(slug, name, el) {
+  curCatSlug = slug;
+  document.querySelectorAll('.fcat').forEach(c => c.classList.remove('active'));
   if (el) el.classList.add('active');
-  
+  document.getElementById('forumCatName').textContent = name;
+  showTopicsView();
   const list = document.getElementById('topicsList');
   list.innerHTML = '<div class="loading">Загрузка</div>';
-
   try {
-    const res = await fetch(`${API}/api/forum/topics?category_slug=${slug}&limit=30`);
-    const topics = await res.json();
-    
-    if (!topics.length) {
-      list.innerHTML = '<div class="empty-state"><span class="empty-icon">📝</span>Тем нет. Создайте первую!</div>';
-      return;
-    }
+    const r = await fetch(`${API}/api/forum/topics?category_slug=${slug}&limit=30`);
+    const topics = await r.json();
+    if (!topics.length) { list.innerHTML = '<div class="empty"><span class="empty-icon">📝</span>Тем нет. Создайте первую!</div>'; return; }
     list.innerHTML = topics.map(t => `
-      <div class="topic-item">
+      <div class="titem" onclick="openTopic(${t.id},'${t.title.replace(/'/g,"\\'")}')">
         <div>
-          <div class="topic-title">
-            ${t.is_pinned ? '<span class="pinned-badge">PIN</span>' : ''}
-            ${t.title}
-          </div>
-          <div class="topic-meta">${t.author} · ${t.author_rank} · ${formatDate(t.updated_at)}</div>
+          <div class="titem-title">${t.is_pinned?'<span class="pin-b">PIN</span>':''}${t.title}</div>
+          <div class="titem-meta">${t.author} · ${t.author_rank} · ${fdate(t.updated_at)}</div>
         </div>
-        <div class="topic-stats">
-          👁 ${t.views}<br>💬 ${t.post_count}
-        </div>
-      </div>
-    `).join('');
-  } catch(e) {
-    list.innerHTML = '<div class="empty-state">Ошибка загрузки</div>';
-  }
+        <div class="titem-stats">👁 ${t.views}<br>💬 ${t.post_count}</div>
+      </div>`).join('');
+  } catch(e) { list.innerHTML = '<div class="empty">Ошибка загрузки</div>'; }
 }
 
-function openNewTopicModal() {
-  if (!currentUser) { toast('Войдите через Telegram', true); return; }
-  document.getElementById('topicModal').classList.add('open');
+function showTopicsView() {
+  document.getElementById('topicsView').style.display = 'block';
+  document.getElementById('topicView').classList.remove('active');
 }
-function closeTopicModal() { document.getElementById('topicModal').classList.remove('open'); }
+
+async function openTopic(id, title) {
+  curTopicId = id;
+  document.getElementById('tvTitle').textContent = title;
+  document.getElementById('topicsView').style.display = 'none';
+  document.getElementById('topicView').classList.add('active');
+  if (me) {
+    document.getElementById('replyBox').style.display = 'block';
+    document.getElementById('replyLoginMsg').style.display = 'none';
+  } else {
+    document.getElementById('replyBox').style.display = 'none';
+    document.getElementById('replyLoginMsg').style.display = 'block';
+  }
+  const el = document.getElementById('postsList');
+  el.innerHTML = '<div class="loading">Загрузка</div>';
+  try {
+    const r = await fetch(`${API}/api/forum/topic/${id}`);
+    const d = await r.json();
+    renderPosts(d.posts);
+  } catch(e) { el.innerHTML = '<div class="empty">Ошибка загрузки</div>'; }
+}
+
+function renderPosts(posts) {
+  const el = document.getElementById('postsList');
+  if (!posts.length) { el.innerHTML = '<div class="empty"><span class="empty-icon">💬</span>Нет сообщений</div>'; return; }
+  el.innerHTML = posts.map(p => `
+    <div class="post">
+      <div class="post-author">
+        <div class="post-nick">${p.author}</div>
+        <div class="post-rank">${p.author_rank}</div>
+        <div class="post-lvl">Ур. ${p.author_level}</div>
+      </div>
+      <div>
+        <div class="post-content">${escHtml(p.content)}</div>
+        <div class="post-date">${fdate(p.created_at)}</div>
+      </div>
+    </div>`).join('');
+}
+
+function backToTopics() {
+  document.getElementById('topicsView').style.display = 'block';
+  document.getElementById('topicView').classList.remove('active');
+  if (curCatSlug) loadTopics(curCatSlug, document.getElementById('forumCatName').textContent);
+}
+
+async function submitReply() {
+  if (!me || !curTopicId) return;
+  const text = document.getElementById('replyText').value.trim();
+  if (!text) { toast('Напишите сообщение', true); return; }
+  const r = await fetch(`${API}/api/forum/post/create`, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({telegram_id:me.telegram_id,topic_id:curTopicId,content:text})});
+  const d = await r.json();
+  if (d.ok) {
+    document.getElementById('replyText').value = '';
+    toast('✅ Ответ отправлен');
+    openTopic(curTopicId, document.getElementById('tvTitle').textContent);
+  } else toast(d.message, true);
+}
 
 async function submitTopic() {
-  if (!currentUser) return;
-  const category_slug = document.getElementById('topicCategory').value;
+  if (!me) return;
+  const slug = document.getElementById('topicCat').value;
   const title = document.getElementById('topicTitle').value.trim();
-  const content = document.getElementById('topicContent').value.trim();
+  const content = document.getElementById('topicText').value.trim();
   if (!title || !content) { toast('Заполните заголовок и текст', true); return; }
-
-  try {
-    const res = await fetch(`${API}/api/forum/topic/create`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ telegram_id: currentUser.telegram_id, category_slug, title, content })
-    });
-    const data = await res.json();
-    toast(data.ok ? '✅ Тема создана!' : data.message, !data.ok);
-    if (data.ok) { closeTopicModal(); loadTopics(category_slug); }
-  } catch (e) { toast('Ошибка сервера', true); }
-}
-
-// ── STATS ─────────────────────────────────────────────────────────────────
-function updateStats(listings) {
-  document.getElementById('statListings').textContent = listings.length;
-}
-function updateStatsFromLeaderboard(data) {
-  document.getElementById('statPlayers').textContent = data.length;
-  if (data[0]) {
-    document.getElementById('statTopCash').textContent = '$' + Math.floor(data[0].cash / 1000) + 'K';
-    document.getElementById('statTopPlayer').textContent = data[0].nickname;
+  const r = await fetch(`${API}/api/forum/topic/create`, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({telegram_id:me.telegram_id,category_slug:slug,title,content})});
+  const d = await r.json();
+  toast(d.ok ? '✅ Тема создана!' : d.message, !d.ok);
+  if (d.ok) {
+    closeModal('topicModal');
+    document.getElementById('topicTitle').value = '';
+    document.getElementById('topicText').value = '';
+    loadTopics(slug, cats.find(c=>c.slug===slug)?.name||slug);
   }
 }
 
-// ── TOAST ─────────────────────────────────────────────────────────────────
-function toast(msg, isError = false) {
-  const container = document.getElementById('toasts');
-  const el = document.createElement('div');
-  el.className = 'toast' + (isError ? ' error' : '');
-  el.textContent = msg;
-  container.appendChild(el);
-  setTimeout(() => el.remove(), 4000);
+// ── MODALS ────────────────────────────────────────────────────────────────
+function openModal(id) {
+  if (!me) { toast('Войдите через Telegram', true); return; }
+  document.getElementById(id).classList.add('open');
 }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+document.addEventListener('click', e => {
+  if (e.target.classList.contains('modal-overlay')) e.target.classList.remove('open');
+});
 
 // ── UTILS ─────────────────────────────────────────────────────────────────
-function formatDate(iso) {
-  const d = new Date(iso);
-  const now = new Date();
-  const diff = (now - d) / 1000;
-  if (diff < 60) return 'только что';
-  if (diff < 3600) return Math.floor(diff/60) + 'м назад';
-  if (diff < 86400) return Math.floor(diff/3600) + 'ч назад';
+function fdate(iso) {
+  const d = new Date(iso), now = new Date(), diff = (now-d)/1000;
+  if (diff<60) return 'только что';
+  if (diff<3600) return Math.floor(diff/60)+'м назад';
+  if (diff<86400) return Math.floor(diff/3600)+'ч назад';
   return d.toLocaleDateString('ru-RU');
+}
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+function toast(msg, isErr=false) {
+  const c = document.getElementById('toasts');
+  const el = document.createElement('div');
+  el.className = 'toast' + (isErr?' err':'');
+  el.textContent = msg;
+  c.appendChild(el);
+  setTimeout(()=>el.remove(), 4000);
 }
 
 // ── INIT ──────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   loadMarket();
-  loadLeaderboard('cash');
-  
-  // Check URL for Telegram auth params
-  const urlParams = new URLSearchParams(window.location.search);
-  if (urlParams.get('tg_id')) {
-    fetch(`${API}/api/user/${urlParams.get('tg_id')}`)
-      .then(r => r.json())
-      .then(data => { if (data.telegram_id) setUser(data); })
-      .catch(() => {});
+  loadLB('cash');
+  const p = new URLSearchParams(location.search);
+  if (p.get('tg_id')) {
+    fetch(`${API}/api/user/${p.get('tg_id')}`)
+      .then(r=>r.json())
+      .then(d=>{ if(d.telegram_id) setMe(d); })
+      .catch(()=>{});
   }
-
-  // Close modals on overlay click
-  document.getElementById('sellModal').addEventListener('click', function(e) {
-    if (e.target === this) closeSellModal();
-  });
-  document.getElementById('topicModal').addEventListener('click', function(e) {
-    if (e.target === this) closeTopicModal();
-  });
 });
 </script>
 </body>
