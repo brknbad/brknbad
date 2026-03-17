@@ -422,10 +422,8 @@ async def cb_shop(callback: types.CallbackQuery):
 @dp.message(F.text == "🌐 Сайт")
 async def cmd_site(message: types.Message):
     kb = InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text="🛒 Рынок",    url=f"{SITE_URL}/market")],
-        [InlineKeyboardButton(text="💬 Форум",    url=f"{SITE_URL}/forum")],
-        [InlineKeyboardButton(text="🏆 Топ игроков", url=f"{SITE_URL}/leaderboard")],
-        [InlineKeyboardButton(text="👤 Мой профиль", url=f"{SITE_URL}/login")],
+        [InlineKeyboardButton(text="🌐 Открыть сайт", url=SITE_URL)],
+    ])
     ])
     await message.answer(
         f"🌐 <b>Официальный сайт игры</b>\n\n"
