@@ -10,7 +10,7 @@ from aiogram.fsm.storage.memory import MemoryStorage
 from datetime import datetime
 
 BOT_TOKEN = os.getenv("BOT_TOKEN", "YOUR_BOT_TOKEN_HERE")
-API_URL = os.getenv("API_URL", "http://localhost:8000")
+API_URL = os.getenv("API_URL", "https://brknbad-production.up.railway.app")
 SITE_URL = os.getenv("SITE_URL", "https://your-site.com")
 
 bot = Bot(token=BOT_TOKEN)
