@@ -11,7 +11,7 @@ from datetime import datetime
 
 BOT_TOKEN = os.getenv("BOT_TOKEN", "YOUR_BOT_TOKEN_HERE")
 API_URL = os.getenv("API_URL", "https://brknbad-production.up.railway.app")
-SITE_URL = os.getenv("SITE_URL", "https://your-site.com")
+SITE_URL = os.getenv("SITE_URL", "https://brknbad.github.io/brknbad/")
 
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher(storage=MemoryStorage())
